@@ -1,1 +1,68 @@
+module sequence_detector_for_1011(out,clock,reset,sequence_in);
+input(clock,reset,sequence_in);
+output out;
+reg out;
+parameter zero=3'b000;
+one=3'b001;
+onezero=3'b010;
+onezeroone=3'011;
+onezerooneone=3'100;
+reg[2:0] currentstate,nextstate;
+always@(posedge clock,posedge reset);
+begin
+if(reset==1)
+currentstate=zero;
+else
+currentstate=nextstate;
+end
+always@(sequence_in,currentstate);
+begin
+case(currentstate)
+zero:begin
+if(sequence_in=1)
+nextstate=one;
+else
+nextstate=zero;
+end
+one:begin
+if(sequence_in=0)
+nextstate=onezero:
+else
+nextstate=one;
+end
+onezero:begin
+if(sequence_in=1)
+nextstate=onezeroone;
+else
+nextstate=zero;
+end
+onezeroone:begin
+if(sequence_in=1)
+nextstate=onezerooneone;
+else
+nextstate=onezero;
+end
+onezerooneone:begin
+if(sequence_in=1)
+nextstate=one;
+else
+nextstate=onezero;
+end
+endcase
+end
+always@(currentstate)
+begin
+case(currentstate)
+zero:out<=0;
+one:out<=0;
+onezero:out<=0;
+onezeroone:out<=0;
+onezerooneone:out<=1;
+default:out<=0;
+endcase
+end
+endmodule
+
+
+
 
