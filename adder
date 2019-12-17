@@ -1,17 +1,25 @@
-module halfadder(sum,carry,a,b);
-input(a,b);
+module fulladder(sum,carry,a,b,c);
+input(a,b,c);
 output(sum,carry);
-xor(sum,a,b);
-and(carry,a,b);
+wire(x,y,z);
+xor(sum,a,b,c);
+and(x,a,b);
+and(y,a,c);
+and(z,b,c);
+or(carry,x,y,z);
 end module
 
 
 
 
 
-module halfadder(sum,carry,a,b);
-input(a,b);
+module fulladder(sum,carry,a,b,c);
+input(a,b,c);
+wire(x,y,z);
 output(sum,carry);
 assign sum=a^b;
-assign carry=a&b;
+assign x=a&b;
+assign y=a&c;
+assign z=b&c;
+assign carry=x|y|c;
 endmodule
